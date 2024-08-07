@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!--
+ * @author      Andreas Knollmann
+ * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Infrangible\ETrusted\Block\Widget\AggregateRating" id="etrusted_aggregate_rating">
+        <label>eTrusted Aggregate Rating</label>
+        <description>Displays the aggregate summary of eTrusted.</description>
+        <parameters>
+            <parameter name="days" sort_order="10" visible="true" required="true" xsi:type="select" source_model="Infrangible\ETrusted\Model\Config\Source\Days">
+                <label>Days</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Infrangible\ETrusted\Block\Widget\Reviews" id="etrusted_aggregate_reviews">
+        <label>eTrusted Reviews</label>
+        <description>Displays a list of reviews in a slider.</description>
+        <parameters>
+            <parameter name="count" sort_order="10" visible="true" required="true" xsi:type="text">
+                <label>Count</label>
+            </parameter>
+            <parameter name="rating" sort_order="20" visible="true" required="false" xsi:type="multiselect" source_model="Infrangible\ETrusted\Model\Config\Source\Rating">
+                <label>Rating</label>
+            </parameter>
+            <parameter name="status" sort_order="30" visible="true" required="false" xsi:type="multiselect" source_model="Infrangible\ETrusted\Model\Config\Source\Status">
+                <label>Status</label>
+            </parameter>
+            <parameter name="review_type" sort_order="40" visible="true" required="false" xsi:type="multiselect" source_model="Infrangible\ETrusted\Model\Config\Source\Type">
+                <label>Type</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

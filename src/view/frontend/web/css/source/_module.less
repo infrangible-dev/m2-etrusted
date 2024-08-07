@@ -1,0 +1,73 @@
+/**
+ * @author      Andreas Knollmann
+ * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ */
+
+//noinspection LessUnresolvedVariable
+& when (@media-common = true) {
+    .etrusted-rating-summary {
+        display: inline-block;
+        text-align: center;
+
+        h3.etrusted-rating-summary-label {
+            display: inline-block;
+            margin: 10px 0;
+
+            span.etrusted-rating-summary-count {
+                font-size: .75em;
+            }
+        }
+
+        .etrusted-rating-summary-detail {
+            margin: 0 0 10px;
+            background-color: #cb0b0f;
+            color: #fff;
+            padding: .5em 1em;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 5px 5px 5px #ccc;
+
+            .etrusted-rating-summary-value {
+                display: block;
+                font-size: 2em;
+                font-weight: 700;
+            }
+
+            .etrusted-rating-summary-value-label {
+                display: block;
+            }
+        }
+    }
+
+    .etrusted-reviews {
+        .rating-summary {
+            .rating-result {
+                > span:before {
+                    color: #ffdc0f;
+                }
+            }
+        }
+
+        .etrusted-review {
+            .etrusted-review-details {
+                float: left;
+
+                .etrusted-review-title {
+                    color: #cb0b0f;
+                    font-weight: bold;
+                }
+
+                .etrusted-review-date {
+                    font-size: .75em;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .etrusted-review-icon {
+                float: right;
+                margin-right: 10px;
+            }
+        }
+    }
+}

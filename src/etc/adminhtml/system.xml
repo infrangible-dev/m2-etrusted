@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<!--
+ * @author      Andreas Knollmann
+ * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="infrangible_etrusted" translate="label" type="text" sortOrder="1020" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>eTrusted</label>
+            <tab>infrangible</tab>
+            <resource>Infrangible_ETrusted::config_infrangible_etrusted</resource>
+            <group id="sso" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SSO</label>
+                <field id="client_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Client Id</label>
+                </field>
+                <field id="secret" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Secret</label>
+                </field>
+            </group>
+            <group id="channel" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Channel</label>
+                <field id="channel_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Channel Id</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
