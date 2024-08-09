@@ -30,11 +30,11 @@ class AggregateRating
     private $aggregateRatingData = [];
 
     public function __construct(
-        Template\Context $context,
-        Stores $storeHelper,
+        Template\Context                            $context,
+        Stores                                      $storeHelper,
         \Infrangible\ETrusted\Model\AggregateRating $aggregateRating,
-        Arrays $arrays,
-        array $data = [])
+        Arrays                                      $arrays,
+        array                                       $data = [])
     {
         parent::__construct($context, $data);
 
@@ -45,9 +45,14 @@ class AggregateRating
 
     protected function _construct(): void
     {
-        $this->setTemplate('Infrangible_ETrusted::widget/aggregate_rating.phtml');
+        $this->setTemplate($this->getTemplateName());
 
         parent::_construct();
+    }
+
+    public function getTemplateName(): string
+    {
+        return 'Infrangible_ETrusted::widget/aggregate_rating.phtml';
     }
 
     protected function _toHtml(): string

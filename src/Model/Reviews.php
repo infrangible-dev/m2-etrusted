@@ -89,7 +89,12 @@ class Reviews
 
     public function getCacheId(): string
     {
-        return 'reviews';
+        $ratings = $this->getRatings();
+        $status = $this->getStatus();
+        $types = $this->getTypes();
+
+        return sprintf('reviews_%d_%s_%s_%s', $this->getCount(), count($ratings) > 0 ? implode('_', $ratings) : '',
+            count($status) > 0 ? implode('_', $status) : '', count($types) > 0 ? implode('_', $types) : '');
     }
 
     public function getCacheLifeTime(): int

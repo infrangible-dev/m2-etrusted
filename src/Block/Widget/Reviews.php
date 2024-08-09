@@ -7,6 +7,8 @@ namespace Infrangible\ETrusted\Block\Widget;
 use FeWeDev\Base\Arrays;
 use FeWeDev\Base\Variables;
 use Infrangible\Core\Helper\Stores;
+use Infrangible\ETrusted\Block\Widget\Reviews\Item;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
@@ -38,13 +40,13 @@ class Reviews
     private $reviewData = [];
 
     public function __construct(
-        Template\Context $context,
-        Stores $storeHelper,
-        TimezoneInterface $dateTime,
+        Template\Context                    $context,
+        Stores                              $storeHelper,
+        TimezoneInterface                   $dateTime,
         \Infrangible\ETrusted\Model\Reviews $reviews,
-        Arrays $arrays,
-        Variables $variables,
-        array $data = [])
+        Arrays                              $arrays,
+        Variables                           $variables,
+        array                               $data = [])
     {
         parent::__construct($context, $data);
 
@@ -57,9 +59,14 @@ class Reviews
 
     protected function _construct(): void
     {
-        $this->setTemplate('Infrangible_ETrusted::widget/reviews.phtml');
+        $this->setTemplate($this->getTemplateName());
 
         parent::_construct();
+    }
+
+    public function getTemplateName(): string
+    {
+        return 'Infrangible_ETrusted::widget/reviews.phtml';
     }
 
     protected function _toHtml(): string
@@ -68,19 +75,19 @@ class Reviews
 
         $rating = $this->getData('rating');
 
-        if ( ! $this->variables->isEmpty($rating)) {
+        if (!$this->variables->isEmpty($rating)) {
             $this->reviews->setRatings(explode(',', $rating));
         }
 
         $status = $this->getData('status');
 
-        if ( ! $this->variables->isEmpty($status)) {
+        if (!$this->variables->isEmpty($status)) {
             $this->reviews->setStatus(explode(',', $status));
         }
 
         $type = $this->getData('review_type');
 
-        if ( ! $this->variables->isEmpty($type)) {
+        if (!$this->variables->isEmpty($type)) {
             $this->reviews->setTypes(explode(',', $type));
         }
 
@@ -95,13 +102,29 @@ class Reviews
 
         foreach ($this->arrays->getValue($this->reviewData, 'items', []) as $item) {
             $reviews[] = [
-                'rating'  => $this->arrays->getValue($item, 'rating'),
-                'name'    => __('Satisfied Customer'),
+                'rating' => $this->arrays->getValue($item, 'rating'),
+                'name' => __('Satisfied Customer'),
                 'comment' => $this->arrays->getValue($item, 'comment'),
-                'date'    => $this->dateTime->formatDate(date_create($this->arrays->getValue($item, 'editedAt')))
+                'date' => $this->dateTime->formatDate(date_create($this->arrays->getValue($item, 'editedAt')))
             ];
         }
 
         return $reviews;
+    }
+
+    public function getItemHtml(array $review): string
+    {
+        try {
+            /** @var Item $itemBlock */
+            $itemBlock = $this->getLayout()->createBlock(Item::class);
+
+            $itemBlock->setReview($review);
+
+            return $itemBlock->toHtml();
+        } catch (LocalizedException $exception) {
+            $this->_logger->error($exception);
+
+            return '';
+        }
     }
 }

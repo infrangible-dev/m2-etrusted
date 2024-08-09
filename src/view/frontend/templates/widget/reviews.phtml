@@ -17,20 +17,7 @@ use Magento\Framework\View\TemplateEngine\Php;
 
 <div class="etrusted-reviews">
     <?php foreach($block->getReviews() as $review): ?>
-        <?php $percent = ceil($review['rating'] / 5 * 100); ?>
-        <div class="item etrusted-review">
-            <div class="rating-summary item">
-                <div class="rating-result">
-                    <span style="width:<?php echo $percent; ?>%"></span>
-                </div>
-            </div>
-            <div class="etrusted-review-details">
-                <div class="etrusted-review-title"><?php echo $review['name']; ?></div>
-                <div class="etrusted-review-date"><?php echo $review['date']; ?> - verifiziert</div>
-                <div class="etrusted-review-comment"><?php echo is_array($review['comment']) ? '' : $review['comment'] ?></div>
-            </div>
-            <div class="etrusted-review-icon"><img width="54" height="64" src="https://www.trustedshops.de/wp-content/uploads/2022/02/@2xtrustmark-header-1.png" alt="Trusted Shops Logo"/></div>
-        </div>
+        <?php echo $block->getItemHtml($review); ?>
     <?php endforeach ?>
 </div>
 
