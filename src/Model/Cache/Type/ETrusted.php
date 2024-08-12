@@ -12,8 +12,7 @@ use Magento\Framework\Cache\Frontend\Decorator\TagScope;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class ETrusted
-    extends TagScope
+class ETrusted extends TagScope
 {
     public const TYPE_IDENTIFIER = 'etrusted';
     public const CACHE_TAG = 'ETRUSTED';

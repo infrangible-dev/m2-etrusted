@@ -13,22 +13,9 @@ use Magento\Framework\View\Element\Template;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class Item
-    extends Template
+class Item extends Template
 {
     private $review = [];
-
-    protected function _construct(): void
-    {
-        $this->setTemplate($this->getTemplateName());
-
-        parent::_construct();
-    }
-
-    public function getTemplateName(): string
-    {
-        return 'Infrangible_ETrusted::widget/reviews/item.phtml';
-    }
 
     public function getReview(): array
     {
@@ -40,13 +27,16 @@ class Item
         $this->review = $review;
     }
 
-    public function getRatingHtml(array $review): string
-    {
+    public function getRatingHtml(
+        array $review,
+        string $templateName = 'Infrangible_ETrusted::widget/reviews/item/rating.phtml'
+    ): string {
         try {
             /** @var Rating $ratingBlock */
             $ratingBlock = $this->getLayout()->createBlock(Rating::class);
 
-            $ratingBlock->setRating($review['rating']);
+            $ratingBlock->setTemplate($templateName);
+            $ratingBlock->setRating($review[ 'rating' ]);
 
             return $ratingBlock->toHtml();
         } catch (LocalizedException $exception) {

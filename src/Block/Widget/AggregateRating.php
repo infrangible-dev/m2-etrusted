@@ -14,9 +14,7 @@ use Magento\Widget\Block\BlockInterface;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class AggregateRating
-    extends Template
-    implements BlockInterface
+class AggregateRating extends Template implements BlockInterface
 {
     /** @var Stores */
     protected $storeHelper;
@@ -30,13 +28,16 @@ class AggregateRating
     private $aggregateRatingData = [];
 
     public function __construct(
-        Template\Context                            $context,
-        Stores                                      $storeHelper,
+        Template\Context $context,
+        Stores $storeHelper,
         \Infrangible\ETrusted\Model\AggregateRating $aggregateRating,
-        Arrays                                      $arrays,
-        array                                       $data = [])
-    {
-        parent::__construct($context, $data);
+        Arrays $arrays,
+        array $data = []
+    ) {
+        parent::__construct(
+            $context,
+            $data
+        );
 
         $this->storeHelper = $storeHelper;
         $this->aggregateRating = $aggregateRating;
@@ -59,23 +60,41 @@ class AggregateRating
     {
         $data = $this->aggregateRating->get();
 
-        $this->aggregateRatingData = $this->arrays->getValue($data, $this->getData('days'), []);
+        $this->aggregateRatingData = $this->arrays->getValue(
+            $data,
+            $this->getData('days'),
+            []
+        );
 
         return parent::_toHtml();
     }
 
     public function getCount(): int
     {
-        return $this->arrays->getValue($this->aggregateRatingData, 'count', 0);
+        return $this->arrays->getValue(
+            $this->aggregateRatingData,
+            'count',
+            0
+        );
     }
 
     public function getRating(): string
     {
-        return $this->storeHelper->formatNumber($this->arrays->getValue($this->aggregateRatingData, 'rating', 0), 1);
+        return $this->storeHelper->formatNumber(
+            $this->arrays->getValue(
+                $this->aggregateRatingData,
+                'rating',
+                0
+            ),
+            1
+        );
     }
 
     public function getMaxRating(): string
     {
-        return $this->storeHelper->formatNumber(5, 1);
+        return $this->storeHelper->formatNumber(
+            5,
+            1
+        );
     }
 }

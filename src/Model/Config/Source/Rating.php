@@ -11,8 +11,7 @@ use Magento\Framework\Data\OptionSourceInterface;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class Rating
-    implements OptionSourceInterface
+class Rating implements OptionSourceInterface
 {
     /**
      * @return array Format: array(array('value' => '<value>', 'label' => '<label>'), ...)

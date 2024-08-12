@@ -18,9 +18,7 @@ use Magento\Widget\Block\BlockInterface;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class Reviews
-    extends Template
-    implements BlockInterface
+class Reviews extends Template implements BlockInterface
 {
     /** @var Stores */
     protected $storeHelper;
@@ -40,15 +38,18 @@ class Reviews
     private $reviewData = [];
 
     public function __construct(
-        Template\Context                    $context,
-        Stores                              $storeHelper,
-        TimezoneInterface                   $dateTime,
+        Template\Context $context,
+        Stores $storeHelper,
+        TimezoneInterface $dateTime,
         \Infrangible\ETrusted\Model\Reviews $reviews,
-        Arrays                              $arrays,
-        Variables                           $variables,
-        array                               $data = [])
-    {
-        parent::__construct($context, $data);
+        Arrays $arrays,
+        Variables $variables,
+        array $data = []
+    ) {
+        parent::__construct(
+            $context,
+            $data
+        );
 
         $this->storeHelper = $storeHelper;
         $this->dateTime = $dateTime;
@@ -75,20 +76,35 @@ class Reviews
 
         $rating = $this->getData('rating');
 
-        if (!$this->variables->isEmpty($rating)) {
-            $this->reviews->setRatings(explode(',', $rating));
+        if (! $this->variables->isEmpty($rating)) {
+            $this->reviews->setRatings(
+                explode(
+                    ',',
+                    $rating
+                )
+            );
         }
 
         $status = $this->getData('status');
 
-        if (!$this->variables->isEmpty($status)) {
-            $this->reviews->setStatus(explode(',', $status));
+        if (! $this->variables->isEmpty($status)) {
+            $this->reviews->setStatus(
+                explode(
+                    ',',
+                    $status
+                )
+            );
         }
 
         $type = $this->getData('review_type');
 
-        if (!$this->variables->isEmpty($type)) {
-            $this->reviews->setTypes(explode(',', $type));
+        if (! $this->variables->isEmpty($type)) {
+            $this->reviews->setTypes(
+                explode(
+                    ',',
+                    $type
+                )
+            );
         }
 
         $this->reviewData = $this->reviews->get();
@@ -100,24 +116,44 @@ class Reviews
     {
         $reviews = [];
 
-        foreach ($this->arrays->getValue($this->reviewData, 'items', []) as $item) {
+        foreach ($this->arrays->getValue(
+            $this->reviewData,
+            'items',
+            []
+        ) as $item) {
             $reviews[] = [
-                'rating' => $this->arrays->getValue($item, 'rating'),
-                'name' => __('Satisfied Customer'),
-                'comment' => $this->arrays->getValue($item, 'comment'),
-                'date' => $this->dateTime->formatDate(date_create($this->arrays->getValue($item, 'editedAt')))
+                'rating'  => $this->arrays->getValue(
+                    $item,
+                    'rating'
+                ),
+                'name'    => __('Satisfied Customer'),
+                'comment' => $this->arrays->getValue(
+                    $item,
+                    'comment'
+                ),
+                'date'    => $this->dateTime->formatDate(
+                    date_create(
+                        $this->arrays->getValue(
+                            $item,
+                            'editedAt'
+                        )
+                    )
+                )
             ];
         }
 
         return $reviews;
     }
 
-    public function getItemHtml(array $review): string
-    {
+    public function getItemHtml(
+        array $review,
+        string $templateName = 'Infrangible_ETrusted::widget/reviews/item.phtml'
+    ): string {
         try {
             /** @var Item $itemBlock */
             $itemBlock = $this->getLayout()->createBlock(Item::class);
 
+            $itemBlock->setTemplate($templateName);
             $itemBlock->setReview($review);
 
             return $itemBlock->toHtml();

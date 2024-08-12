@@ -16,8 +16,7 @@ use Psr\Log\LoggerInterface;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-abstract class Api
-    extends Base
+abstract class Api extends Base
 {
     /** @var AccessToken */
     protected $accessToken;
@@ -29,8 +28,8 @@ abstract class Api
         Json $json,
         Arrays $arrays,
         LoggerInterface $logging,
-        AccessToken $accessToken)
-    {
+        AccessToken $accessToken
+    ) {
         parent::__construct($cache, $serializer, $storeHelper, $json, $arrays, $logging);
 
         $this->accessToken = $accessToken;

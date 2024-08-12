@@ -18,8 +18,7 @@ use Psr\Log\LoggerInterface;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class Reviews
-    extends Api
+class Reviews extends Api
 {
     /** @var Variables */
     protected $variables;
@@ -40,9 +39,17 @@ class Reviews
         Arrays $arrays,
         LoggerInterface $logging,
         AccessToken $accessToken,
-        Variables $variables)
-    {
-        parent::__construct($cache, $serializer, $storeHelper, $json, $arrays, $logging, $accessToken);
+        Variables $variables
+    ) {
+        parent::__construct(
+            $cache,
+            $serializer,
+            $storeHelper,
+            $json,
+            $arrays,
+            $logging,
+            $accessToken
+        );
 
         $this->variables = $variables;
     }
@@ -93,8 +100,22 @@ class Reviews
         $status = $this->getStatus();
         $types = $this->getTypes();
 
-        return sprintf('reviews_%d_%s_%s_%s', $this->getCount(), count($ratings) > 0 ? implode('_', $ratings) : '',
-            count($status) > 0 ? implode('_', $status) : '', count($types) > 0 ? implode('_', $types) : '');
+        return sprintf(
+            'reviews_%d_%s_%s_%s',
+            $this->getCount(),
+            count($ratings) > 0 ? implode(
+                '_',
+                $ratings
+            ) : '',
+            count($status) > 0 ? implode(
+                '_',
+                $status
+            ) : '',
+            count($types) > 0 ? implode(
+                '_',
+                $types
+            ) : ''
+        );
     }
 
     public function getCacheLifeTime(): int
@@ -113,33 +134,61 @@ class Reviews
 
         $channelId = $this->storeHelper->getStoreConfig('infrangible_etrusted/channel/channel_id');
 
-        $requestUrl =
-            sprintf('https://api.etrusted.com/reviews-minimal?channels=%s&count=%d', $channelId, $this->getCount());
+        $requestUrl = sprintf(
+            'https://api.etrusted.com/reviews-minimal?channels=%s&count=%d',
+            $channelId,
+            $this->getCount()
+        );
 
         $ratings = $this->getRatings();
 
         if (count($ratings) > 0) {
-            $requestUrl .= sprintf('&rating=%s', implode(',', $ratings));
+            $requestUrl .= sprintf(
+                '&rating=%s',
+                implode(
+                    ',',
+                    $ratings
+                )
+            );
         }
 
         $status = $this->getStatus();
 
         if (count($status) > 0) {
-            $requestUrl .= sprintf('&status=%s', implode(',', $status));
+            $requestUrl .= sprintf(
+                '&status=%s',
+                implode(
+                    ',',
+                    $status
+                )
+            );
         }
 
         $types = $this->getTypes();
 
         if (count($types) > 0) {
-            $requestUrl .= sprintf('&type=%s', implode(',', $types));
+            $requestUrl .= sprintf(
+                '&type=%s',
+                implode(
+                    ',',
+                    $types
+                )
+            );
         }
 
-        $response = $client->request('GET', $requestUrl, [
-            'headers' => [
-                'Accept'        => 'application/json',
-                'Authorization' => sprintf('Bearer %s', $accessToken)
-            ],
-        ]);
+        $response = $client->request(
+            'GET',
+            $requestUrl,
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Authorization' => sprintf(
+                        'Bearer %s',
+                        $accessToken
+                    )
+                ],
+            ]
+        );
 
         $responseBody = (string)$response->getBody();
 

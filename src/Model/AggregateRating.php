@@ -11,8 +11,7 @@ use GuzzleHttp\Client;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class AggregateRating
-    extends Api
+class AggregateRating extends Api
 {
     public function getCacheId(): string
     {
@@ -34,20 +33,42 @@ class AggregateRating
      */
     public function getResponseData(Client $client): array
     {
-        $accessToken = $this->accessToken->getToken();
-
-        $channelId = $this->storeHelper->getStoreConfig('infrangible_etrusted/channel/channel_id');
-
-        $response = $client->request('GET',
-            sprintf('https://api.etrusted.com/channels/%s/service-reviews/aggregate-rating', $channelId), [
-                'headers' => [
-                    'Accept'        => 'application/json',
-                    'Authorization' => sprintf('Bearer %s', $accessToken)
-                ],
-            ]);
+        $response = $client->request(
+            'GET',
+            $this->getUri(),
+            $this->getOptions()
+        );
 
         $responseBody = (string)$response->getBody();
 
         return $this->json->decode($responseBody);
+    }
+
+    public function getUri(): string
+    {
+        $channelId = $this->storeHelper->getStoreConfig('infrangible_etrusted/channel/channel_id');
+
+        return sprintf(
+            'https://api.etrusted.com/channels/%s/service-reviews/aggregate-rating',
+            $channelId
+        );
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function getOptions(): array
+    {
+        $accessToken = $this->accessToken->getToken();
+
+        return [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Authorization' => sprintf(
+                    'Bearer %s',
+                    $accessToken
+                )
+            ],
+        ];
     }
 }

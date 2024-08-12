@@ -11,8 +11,7 @@ use GuzzleHttp\Client;
  * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
-class AccessToken
-    extends Base
+class AccessToken extends Base
 {
     private $cacheLifeTime = 3600;
 

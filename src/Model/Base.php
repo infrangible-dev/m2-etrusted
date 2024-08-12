@@ -43,8 +43,8 @@ abstract class Base
         Stores $storeHelper,
         Json $json,
         Arrays $arrays,
-        LoggerInterface $logging)
-    {
+        LoggerInterface $logging
+    ) {
         $this->cache = $cache;
         $this->serializer = $serializer;
         $this->storeHelper = $storeHelper;
@@ -61,7 +61,11 @@ abstract class Base
 
     public function get(): array
     {
-        $cacheId = sprintf('%s_%s', ETrusted::TYPE_IDENTIFIER, $this->getCacheId());
+        $cacheId = sprintf(
+            '%s_%s',
+            ETrusted::TYPE_IDENTIFIER,
+            $this->getCacheId()
+        );
 
         $responseData = $this->cache->load($cacheId);
 
@@ -73,8 +77,12 @@ abstract class Base
             try {
                 $responseData = $this->getResponseData($client);
 
-                $this->cache->save($this->serializer->serialize($responseData), $cacheId, $this->getCacheTags(),
-                    $this->getCacheLifeTime());
+                $this->cache->save(
+                    $this->serializer->serialize($responseData),
+                    $cacheId,
+                    $this->getCacheTags(),
+                    $this->getCacheLifeTime()
+                );
             } catch (\Throwable $exception) {
                 $this->logging->error($exception);
 
