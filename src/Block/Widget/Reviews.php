@@ -6,9 +6,7 @@ namespace Infrangible\ETrusted\Block\Widget;
 
 use FeWeDev\Base\Arrays;
 use FeWeDev\Base\Variables;
-use Infrangible\Core\Helper\Stores;
-use Infrangible\ETrusted\Block\Widget\Reviews\Item;
-use Magento\Framework\Exception\LocalizedException;
+use Infrangible\ETrusted\Helper\Block;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
@@ -20,9 +18,6 @@ use Magento\Widget\Block\BlockInterface;
  */
 class Reviews extends Template implements BlockInterface
 {
-    /** @var Stores */
-    protected $storeHelper;
-
     /** @var TimezoneInterface */
     protected $dateTime;
 
@@ -35,15 +30,18 @@ class Reviews extends Template implements BlockInterface
     /** @var Variables */
     protected $variables;
 
+    /** @var Block */
+    protected $blockHelper;
+
     private $reviewData = [];
 
     public function __construct(
         Template\Context $context,
-        Stores $storeHelper,
         TimezoneInterface $dateTime,
         \Infrangible\ETrusted\Model\Reviews $reviews,
         Arrays $arrays,
         Variables $variables,
+        Block $blockHelper,
         array $data = []
     ) {
         parent::__construct(
@@ -51,11 +49,11 @@ class Reviews extends Template implements BlockInterface
             $data
         );
 
-        $this->storeHelper = $storeHelper;
         $this->dateTime = $dateTime;
         $this->reviews = $reviews;
         $this->arrays = $arrays;
         $this->variables = $variables;
+        $this->blockHelper = $blockHelper;
     }
 
     protected function _construct(): void
@@ -149,18 +147,10 @@ class Reviews extends Template implements BlockInterface
         array $review,
         string $templateName = 'Infrangible_ETrusted::widget/reviews/item.phtml'
     ): string {
-        try {
-            /** @var Item $itemBlock */
-            $itemBlock = $this->getLayout()->createBlock(Item::class);
-
-            $itemBlock->setTemplate($templateName);
-            $itemBlock->setReview($review);
-
-            return $itemBlock->toHtml();
-        } catch (LocalizedException $exception) {
-            $this->_logger->error($exception);
-
-            return '';
-        }
+        return $this->blockHelper->getItemHtml(
+            $this,
+            $review,
+            $templateName
+        );
     }
 }

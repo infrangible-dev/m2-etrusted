@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Infrangible\ETrusted\Block\Widget\Reviews;
 
-use Infrangible\ETrusted\Block\Widget\Reviews\Item\Rating;
-use Magento\Framework\Exception\LocalizedException;
+use Infrangible\ETrusted\Helper\Block;
 use Magento\Framework\View\Element\Template;
 
 /**
@@ -15,7 +14,20 @@ use Magento\Framework\View\Element\Template;
  */
 class Item extends Template
 {
+    /** @var Block */
+    protected $blockHelper;
+
     private $review = [];
+
+    public function __construct(Template\Context $context, Block $blockHelper, array $data = [])
+    {
+        parent::__construct(
+            $context,
+            $data
+        );
+
+        $this->blockHelper = $blockHelper;
+    }
 
     public function getReview(): array
     {
@@ -31,18 +43,10 @@ class Item extends Template
         array $review,
         string $templateName = 'Infrangible_ETrusted::widget/reviews/item/rating.phtml'
     ): string {
-        try {
-            /** @var Rating $ratingBlock */
-            $ratingBlock = $this->getLayout()->createBlock(Rating::class);
-
-            $ratingBlock->setTemplate($templateName);
-            $ratingBlock->setRating($review[ 'rating' ]);
-
-            return $ratingBlock->toHtml();
-        } catch (LocalizedException $exception) {
-            $this->_logger->error($exception);
-
-            return '';
-        }
+        return $this->blockHelper->getRatingHtml(
+            $this,
+            $review,
+            $templateName
+        );
     }
 }
