@@ -1,11 +1,19 @@
 {
     "name": "infrangible/m2-etrusted",
-    "description": "Infrangible Magento 2 eTrusted",
+    "description": "Shows your Trusted Shops (eTrusted) rating summary and a slider with customer reviews on CMS pages and blocks, loaded from the eTrusted platform.",
     "type": "magento2-module",
     "version": "2.1.1",
     "license": "MIT",
     "keywords": [
-        "Magento"
+        "Magento",
+        "Magento 2",
+        "Adobe Commerce",
+        "Integrations",
+        "Content",
+        "Hyvä",
+        "Trusted Shops reviews",
+        "eTrusted review widget",
+        "customer review slider"
     ],
     "homepage": "https://github.com/infrangible-dev/m2-etrusted",
     "authors": [
