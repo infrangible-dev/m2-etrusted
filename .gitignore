@@ -3,6 +3,5 @@
 /app/etc/
 /generated/
 /pub/
-/src/.php-cs-fixer.cache
 /var/
 /vendor/

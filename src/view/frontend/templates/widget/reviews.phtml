@@ -2,29 +2,18 @@
 
 declare(strict_types=1);
 
-use Infrangible\ETrusted\Block\Widget\Reviews;
-use Magento\Framework\View\TemplateEngine\Php;
-
 /**
  * @author      Andreas Knollmann
- * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
+ * @copyright   Copyright (c) 2014-2026 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
 
-/** @var Php $this */
+use Infrangible\ETrusted\Block\Widget\Reviews;
+
 /** @var Reviews $block */
 ?>
-
-<div class="etrusted-reviews">
-    <?php foreach($block->getReviews() as $review): ?>
-        <?php echo $block->getItemHtml($review); ?>
-    <?php endforeach ?>
+<div class="etrusted-reviews" data-mage-init='{"infrangible/etrusted-reviews": {}}'>
+    <?php foreach ($block->getReviews() as $review): ?>
+        <?= /* @noEscape */ $block->getItemHtml($review) ?>
+    <?php endforeach; ?>
 </div>
-
-<script type="text/x-magento-init">
-    {
-        ".etrusted-reviews": {
-            "infrangible/etrusted-reviews": {}
-        }
-    }
-</script>

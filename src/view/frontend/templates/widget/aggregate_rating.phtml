@@ -2,23 +2,27 @@
 
 declare(strict_types=1);
 
-use Infrangible\ETrusted\Block\Widget\AggregateRating;
-use Magento\Framework\View\TemplateEngine\Php;
-
 /**
  * @author      Andreas Knollmann
- * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
+ * @copyright   Copyright (c) 2014-2026 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
 
-/** @var Php $this */
-/** @var AggregateRating $block */
-?>
+use Infrangible\ETrusted\Block\Widget\AggregateRating;
+use Magento\Framework\Escaper;
 
+/** @var AggregateRating $block */
+/** @var Escaper $escaper */
+?>
 <div class="etrusted-rating-summary">
-    <h3 class="etrusted-rating-summary-label"><?php echo __('Trusted Shops'); ?> <span class="etrusted-rating-summary-count">(<?php echo $block->getCount(); ?>)</span></h3>
+    <h3 class="etrusted-rating-summary-label">
+        <?= $escaper->escapeHtml(__('Trusted Shops')) ?>
+        <span class="etrusted-rating-summary-count">(<?= /* @noEscape */ $block->getCount() ?>)</span>
+    </h3>
     <div class="etrusted-rating-summary-detail">
-        <span class="etrusted-rating-summary-value"><?php echo sprintf('%s / %s', $block->getRating(), $block->getMaxRating()); ?></span>
-        <span class="etrusted-rating-summary-value-label"><?php echo __('Total Rating'); ?></span>
+        <span class="etrusted-rating-summary-value">
+            <?= $escaper->escapeHtml(sprintf('%s / %s', $block->getRating(), $block->getMaxRating())) ?>
+        </span>
+        <span class="etrusted-rating-summary-value-label"><?= $escaper->escapeHtml(__('Total Rating')) ?></span>
     </div>
 </div>

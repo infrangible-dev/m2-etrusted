@@ -2,28 +2,34 @@
 
 declare(strict_types=1);
 
+/**
+ * @author      Andreas Knollmann
+ * @copyright   Copyright (c) 2014-2026 Softwareentwicklung Andreas Knollmann
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ */
+
 namespace Infrangible\ETrusted\Model\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
 /**
- * @author      Andreas Knollmann
- * @copyright   2014-2024 Softwareentwicklung Andreas Knollmann
- * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ * The ratings of reviews.
  */
 class Rating implements OptionSourceInterface
 {
     /**
-     * @return array Format: array(array('value' => '<value>', 'label' => '<label>'), ...)
+     * Returns the options.
+     *
+     * @return array<int, array{value: string, label: string}>
      */
     public function toOptionArray(): array
     {
         return [
-            ['value' => '1', 'label' => 1],
-            ['value' => '2', 'label' => 2],
-            ['value' => '3', 'label' => 3],
-            ['value' => '4', 'label' => 4],
-            ['value' => '5', 'label' => 5]
+            ['value' => '1', 'label' => '1'],
+            ['value' => '2', 'label' => '2'],
+            ['value' => '3', 'label' => '3'],
+            ['value' => '4', 'label' => '4'],
+            ['value' => '5', 'label' => '5']
         ];
     }
 }
