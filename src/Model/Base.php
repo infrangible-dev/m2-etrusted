@@ -100,8 +100,6 @@ abstract class Base
      * @phpstan-param array<int|string, mixed> $data
      *
      * @return int
-     *
-     * @noinspection PhpUnusedParameterInspection subclasses read the lifetime from the data, see AccessToken
      */
     protected function getCacheLifetime(array $data): int
     {

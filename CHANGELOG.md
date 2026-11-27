@@ -11,15 +11,16 @@
   `AggregateRating::getAggregateRating()` and `Reviews::getReviews($count, $ratings, $status, $types)` replace `get()`
   and the setters of the filters. The classes have native types and use constructor property promotion.
 - The trust mark next to the reviews is an image of the configuration (Display > Trust Mark) instead of an image of
-  www.trustedshops.de.
+  the website of Trusted Shops.
 
 ### Fixed
 
 - Review comments were output as HTML: a comment with HTML code ran it in the shop (cross-site scripting). They are
   escaped now, like all texts of the templates.
 - A reviews widget without filters showed the reviews of another reviews widget with filters on the same page.
-- The trust mark next to every review was a broken image: the image on www.trustedshops.de no longer exists.
-- The date of the reviews was followed by the German "verifiziert" in every language; it is translated now.
+- The trust mark next to every review was a broken image: the image on the website of Trusted Shops no longer
+  exists.
+- The date of the reviews was followed by the German word for "verified" in every language; it is translated now.
 - The German translation of the review type "Product Review" was missing.
 
 ### Changed

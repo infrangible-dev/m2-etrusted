@@ -127,7 +127,9 @@ class ApiTest extends TestCase
             fn(string $value): string => str_starts_with($value, 'encrypted:') ? substr($value, 10) : ''
         );
 
-        return new AccessToken(...[...$this->createServices(), $encryptor]);
+        [$cache, $storeHelper, $json, $variables, $logging, $curlFactory] = $this->createServices();
+
+        return new AccessToken($cache, $storeHelper, $json, $variables, $logging, $curlFactory, $encryptor);
     }
 
     /**
@@ -137,7 +139,17 @@ class ApiTest extends TestCase
      */
     private function createReviews(): Reviews
     {
-        return new Reviews(...[...$this->createServices(), $this->createAccessToken()]);
+        [$cache, $storeHelper, $json, $variables, $logging, $curlFactory] = $this->createServices();
+
+        return new Reviews(
+            $cache,
+            $storeHelper,
+            $json,
+            $variables,
+            $logging,
+            $curlFactory,
+            $this->createAccessToken()
+        );
     }
 
     /**
@@ -147,7 +159,17 @@ class ApiTest extends TestCase
      */
     private function createAggregateRating(): AggregateRating
     {
-        return new AggregateRating(...[...$this->createServices(), $this->createAccessToken()]);
+        [$cache, $storeHelper, $json, $variables, $logging, $curlFactory] = $this->createServices();
+
+        return new AggregateRating(
+            $cache,
+            $storeHelper,
+            $json,
+            $variables,
+            $logging,
+            $curlFactory,
+            $this->createAccessToken()
+        );
     }
 
     /**
